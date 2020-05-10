@@ -5,7 +5,7 @@
   import { List, Card, Button, Dialog } from "smelte";
   import CreateUser from "../components/CreateUser.svelte";
   import UpdateUser from "../components/UpdateUser.svelte";
-
+  import Spinner from "../components/Spinner.svelte";
   export let currentRoute;
   export let params;
   currentRoute;
@@ -59,7 +59,9 @@
     user={selectedUser} />
 {/if}
 {#await users}
-  loading
+  <div class="text-center mt-5">
+    <Spinner />
+  </div>
 {:then data}
   {#if data}
     <div class="flex flex-wrap">
