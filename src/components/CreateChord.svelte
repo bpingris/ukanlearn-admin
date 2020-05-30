@@ -27,7 +27,7 @@
 
   async function createChord() {
     try {
-      await client.post("/admin/chord", {
+      await client.post("/admin/chords", {
         name,
         instrument,
         strings: points

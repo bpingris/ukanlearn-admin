@@ -4,7 +4,7 @@ import axios from 'axios'
 import { user } from '../stores/user'
 
 export let client = axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: 'http://localhost:3000/api/v1',
     timeout: 7500
 })
 
@@ -17,7 +17,7 @@ client.interceptors.request.use(config => {
 })
 
 client.interceptors.response.use(c => c, error => {
-    if (error.response.status === 403) {
+    if ([401,403].includes(error.response.status)) {
         navigateTo('/login')
     }
     throw error

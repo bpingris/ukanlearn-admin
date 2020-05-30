@@ -21,18 +21,10 @@
     { value: "ukulele", text: "Ukulele" }
   ];
 
-  //   function filteredChords(c) {
-  //     console.log(c);
-  //     if (filterByInstrument === "") return c;
-  //     if (c) {
-  //       return c.filter(o => o.instrument === filterByInstrument);
-  //     }
-  //     return [];
-  //   }
 
   onMount(fetchChords);
   function fetchChords() {
-    chords = client.get("/admin/chord");
+    chords = client.get("/admin/chords");
   }
   function askDeleteConfirmation(e) {
     selectedChord = e;
@@ -41,7 +33,7 @@
 
   async function deleteChord() {
     try {
-      const r = await client.delete(`/admin/chord/${selectedChord._id}`);
+      await client.delete(`/admin/chords/${selectedChord._id}`);
       selectedChord = null;
       confirmDeletion = false;
       fetchChords();
@@ -55,7 +47,7 @@
     filterByInstrument;
     if (chords && chords.then) {
       chords.then(o => {
-        filteredChords = o.data.filter(o =>
+        filteredChords = o.data.chords.filter(o =>
           filterByInstrument === "" ? true : o.instrument === filterByInstrument
         );
       });

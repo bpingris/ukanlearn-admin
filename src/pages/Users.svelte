@@ -12,7 +12,7 @@
   params;
 
   function fetchUsers() {
-    users = client.get("/admin/user");
+    users = client.get("/admin/users");
   }
   function pad(n) {
     return n < 10 ? "0" + n : n;
@@ -25,7 +25,9 @@
   }
 
   async function deleteUser() {
-    await client.delete("/admin/user", { data: { email: selectedUser.email } });
+    console.log({ selectedUser });
+
+    await client.delete(`/admin/users/${selectedUser._id}`);
     fetchUsers();
     confirmDeletion = false;
     selectedUser = null;
@@ -65,7 +67,7 @@
 {:then data}
   {#if data}
     <div class="flex flex-wrap">
-      {#each data.data as item (item._id)}
+      {#each data.data.users as item (item._id)}
         <li class="list-none w-full sm:w-1/2 md:w-1/3 p-2">
           <Card.Card class="w-full" elevation="3">
             <div slot="title">
@@ -78,11 +80,11 @@
               </div>
               <div class="flex justify-between">
                 <p class="font-semibold mr-2">Created at:</p>
-                {format(item.createdAt)}
+                {format(item.created_at)}
               </div>
               <div class="flex justify-between">
                 <p class="font-semibold mr-2">Updated at:</p>
-                {format(item.updatedAt)}
+                {format(item.updated_at)}
               </div>
               <div class="flex justify-between">
                 <p class="font-semibold mr-2">Drafts:</p>
@@ -91,6 +93,10 @@
               <div class="flex justify-between">
                 <p class="font-semibold mr-2">Historic:</p>
                 {item.historic ? item.historic.length : 0}
+              </div>
+              <div class="flex justify-between">
+                <p class="font-semibold mr-2">Activated:</p>
+                {item.activated}
               </div>
             </div>
             <div slot="actions" class="my-4">
@@ -109,8 +115,6 @@
       {/each}
 
     </div>
-    <!-- <List class="flex flex-wrap" items={formatData(data.data)} dense navigation>
-    </List> -->
   {/if}
 {:catch error}
   <pre>{JSON.stringify(error, null, 2)}</pre>

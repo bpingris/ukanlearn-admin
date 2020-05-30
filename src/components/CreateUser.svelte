@@ -44,7 +44,7 @@
   async function createUser() {
     if (!validate()) return;
     try {
-      await client.post("/admin/user", {
+      await client.post("/admin/users", {
         username,
         email,
         password,
@@ -85,7 +85,7 @@
   <h5 slot="title">Create a new user</h5>
   <TextField error={_username} bind:value={username} label="Username" />
   <TextField error={_email} bind:value={email} label="Email" />
-  <TextField error={_password} bind:value={password} label="Password" />
+  <TextField type="password" error={_password} bind:value={password} label="Password" />
   <Select label="Role" items={roles} bind:value={role} />
 
   <div slot="actions" class="text-right">

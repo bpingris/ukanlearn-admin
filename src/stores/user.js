@@ -17,9 +17,9 @@ function _createUserStore(http) {
          */
         async login(email, password) {
             try {
-                const { data } = await http.post('/login/admin', { email, password })
-                update(u => ({ ...u, token: data.access_token }))
-                localStorage.setItem('ukanlearn-access-token-admin', data.access_token)
+                const { data } = await http.post('/auth/login/admin', { email, password })
+                update(u => ({ ...u, token: data.token }))
+                localStorage.setItem('ukanlearn-access-token-admin', data.token)
                 return null
             } catch (error) {
                 return error

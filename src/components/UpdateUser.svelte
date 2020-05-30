@@ -45,8 +45,7 @@
 
   async function update() {
     try {
-      await client.patch("/admin/user", {
-        id: user._id,
+      await client.put(`/admin/users/${user._id}`, {
         email: user.email,
         username: user.username,
         role: user.role
@@ -65,11 +64,11 @@
   <Select label="Role" items={roles} bind:value={user.role} />
   <div class="flex justify-between">
     <p class="font-semibold mr-2">Created at:</p>
-    {format(user.createdAt)}
+    {format(user.created_at)}
   </div>
   <div class="flex justify-between">
     <p class="font-semibold mr-2">Updated at:</p>
-    {format(user.updatedAt)}
+    {format(user.updated_at)}
   </div>
   <div class="flex justify-between">
     <p class="font-semibold mr-2">Drafts:</p>
@@ -78,6 +77,10 @@
   <div class="flex justify-between">
     <p class="font-semibold mr-2">Historic:</p>
     {user.historic ? user.historic.length : 0}
+  </div>
+  <div class="flex justify-between">
+    <p class="font-semibold mr-2">Activated:</p>
+    {user.activated}
   </div>
   <div slot="actions" class="text-right">
     <Button on:click={update}>Update</Button>
