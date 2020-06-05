@@ -77,9 +77,8 @@
   ];
 </script>
 
-<div class="flex justify-center items-center my-5">
   <Button on:click={() => (open = true)}>Create</Button>
-</div>
+
 
 <Dialog bind:value={open} class="w-full md:w-1/2 lg:w-1/3">
   <h5 slot="title">Create a new user</h5>

@@ -53,7 +53,12 @@
   onMount(fetchUsers);
 </script>
 
-<CreateUser on:user_created={fetchUsers} />
+<div class="flex justify-center items-center my-5">
+  <CreateUser on:user_created={fetchUsers} />
+  <span class="mx-2" />
+  <Button on:click={fetchUsers}>Refresh</Button>
+</div>
+
 {#if openDetails}
   <UpdateUser
     on:user_updated={fetchUsers}

@@ -27,6 +27,8 @@
     }
   ];
 
+  let items = [{ value: false, text: "False" }, { value: true, text: "True" }];
+
   function close() {
     open = false;
   }
@@ -48,7 +50,8 @@
       await client.put(`/admin/users/${user._id}`, {
         email: user.email,
         username: user.username,
-        role: user.role
+        role: user.role,
+        activated: user.activated
       });
       dispatch("user_updated");
     } catch (error) {
@@ -78,9 +81,11 @@
     <p class="font-semibold mr-2">Historic:</p>
     {user.historic ? user.historic.length : 0}
   </div>
-  <div class="flex justify-between">
+  <div class="flex justify-between items-center">
     <p class="font-semibold mr-2">Activated:</p>
-    {user.activated}
+    <Select label="Activated" {items} bind:value={user.activated} />
+
+    <!-- {user.activated} -->
   </div>
   <div slot="actions" class="text-right">
     <Button on:click={update}>Update</Button>
